@@ -1,9 +1,9 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 
-from app.schemas.query import QueryRequest, QueryResponse
-from app.services.ingestions import run_ingestion
-from app.services.retreival import retrieve_documents
-from app.services.llm import generate_answer
+from schemas.query import QueryRequest, QueryResponse
+from services.ingestions import run_ingestion
+from services.retreival import retrieve_documents
+from services.llm import generate_answer
 
 router = APIRouter()
 
@@ -17,7 +17,10 @@ def ingest_documents():
 def query_rag(request: QueryRequest):
 
     docs = retrieve_documents(request.query)
-    answer = generate_answer(request.query, docs)
+    try:
+        answer = generate_answer(request.query, docs)
+    except ValueError as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
 
     return QueryResponse(
         query=request.query,

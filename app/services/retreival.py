@@ -1,12 +1,12 @@
 from langchain_chroma import Chroma
-from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 
-from app.core.constants import (
+from core.constants import (
     EMBEDDING_MODEL,
     TOP_K_RESULTS,
     COLLECTION_NAME
 )
-from app.core.config import settings
+from core.config import settings
 
 
 def load_vector_store():

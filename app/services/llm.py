@@ -1,11 +1,16 @@
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.messages import HumanMessage, SystemMessage
 
-from app.core.config import settings
-from app.core.constants import LLM_MODEL
+from core.config import settings
+from core.constants import LLM_MODEL
 
 
 def get_llm():
+    if not settings.GOOGLE_API_KEY:
+        raise ValueError(
+            "Gemini API key is missing. Set GEMINI_API_KEY or GOOGLE_API_KEY in the .env file."
+        )
+
     return ChatGoogleGenerativeAI(
         model=LLM_MODEL,
         google_api_key=settings.GOOGLE_API_KEY,
