@@ -1,2 +1,4 @@
 /menv
 .env
+db/*
+__pycache__
