@@ -3,6 +3,9 @@ import os
 
 load_dotenv()
 
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+class Settings:
+    GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+    CHROMA_DB_PATH = "db"
+    SOURCE_DOCS_PATH = "data/source_docs"
 
-print("API KEY:", GEMINI_API_KEY)
+settings = Settings()

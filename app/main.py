@@ -1,8 +1,10 @@
 from fastapi import FastAPI
+from app.api.routes import router
 
-app = FastAPI()
+app = FastAPI(
+    title="RAG System",
+    description="Simple RAG using Chroma + Gemini + FastAPI",
+    version="1.0.0"
+)
 
-
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
+app.include_router(router)
